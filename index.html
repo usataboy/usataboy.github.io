@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UsaTaboy — Beyond the Ordinary</title>
+  <style>
+    :root {
+      --bg: #090a10;
+      --text: #f1f0eb;
+      --muted: #888b9c;
+      --accent: #c7ff6b;
+      --line: rgba(255, 255, 255, .11);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 77% 36%, rgba(95, 66, 143, .14), transparent 33%),
+        var(--bg);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    .layout {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 92px 1fr;
+    }
+
+    aside {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .side-label {
+      writing-mode: vertical-rl;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: .25em;
+    }
+
+    .side-index {
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: .1em;
+    }
+
+    main {
+      width: min(1280px, 100%);
+      margin: 0 auto;
+      padding: 34px clamp(24px, 6vw, 90px) 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .status i {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .hero {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 30px;
+      padding: 38px 0;
+    }
+
+    .intro { position: relative; z-index: 2; }
+
+    .kicker {
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: .28em;
+    }
+
+    h1 {
+      margin: 24px 0 18px;
+      font-size: clamp(52px, 9vw, 112px);
+      line-height: .91;
+      font-weight: 500;
+      letter-spacing: -.075em;
+    }
+
+    h1 span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(241, 240, 235, .52);
+    }
+
+    .description {
+      max-width: 360px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .signature {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      color: var(--text);
+      font-size: 11px;
+      letter-spacing: .12em;
+    }
+
+    .signature::before {
+      width: 34px;
+      height: 1px;
+      content: "";
+      background: var(--accent);
+    }
+
+    .orbit-scene {
+      position: relative;
+      display: grid;
+      min-height: 390px;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .orbit {
+      position: absolute;
+      width: min(32vw, 360px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 50%;
+      transform: rotate(-28deg) scaleY(.48);
+    }
+
+    .orbit.two {
+      width: min(40vw, 450px);
+      border-color: rgba(199, 255, 107, .26);
+      transform: rotate(34deg) scaleY(.5);
+    }
+
+    .planet {
+      position: relative;
+      width: clamp(150px, 22vw, 245px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 28%, #c3a5ff 0, #745d9a 13%, #302a49 42%, #11131d 72%);
+      box-shadow: inset -24px -18px 40px #05060b, 0 0 75px rgba(136, 97, 194, .19);
+    }
+
+    .planet::after {
+      position: absolute;
+      inset: 13% 7% 48% 17%;
+      content: "";
+      border-radius: 50%;
+      background: linear-gradient(140deg, rgba(255,255,255,.17), transparent 70%);
+      filter: blur(8px);
+    }
+
+    .satellite {
+      position: absolute;
+      top: 28%;
+      right: 17%;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    .orbit-caption {
+      position: absolute;
+      right: 2%;
+      bottom: 9%;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: .2em;
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      border-top: 1px solid var(--line);
+    }
+
+    .info {
+      padding: 20px 22px 8px 0;
+    }
+
+    .info + .info {
+      padding-left: 22px;
+      border-left: 1px solid var(--line);
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: .2em;
+    }
+
+    .value {
+      margin-top: 11px;
+      font-size: 15px;
+      letter-spacing: .04em;
+    }
+
+    .time {
+      color: var(--accent);
+      font-size: clamp(24px, 4vw, 38px);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.04em;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 26px;
+      color: #656777;
+      font-size: 9px;
+      letter-spacing: .14em;
+    }
+
+    @media (max-width: 700px) {
+      .layout { grid-template-columns: 52px 1fr; }
+      aside { padding: 20px 0; }
+      .mark { width: 30px; height: 30px; font-size: 10px; }
+      main { padding: 24px 20px 18px; }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 64px 0 30px;
+      }
+      .orbit-scene {
+        min-height: 260px;
+        grid-row: 1;
+      }
+      .orbit { width: 250px; }
+      .orbit.two { width: 310px; }
+      .planet { width: 160px; }
+      h1 { margin-top: 16px; }
+      .info-row { grid-template-columns: 1fr 1fr; }
+      .info:first-child { grid-column: 1 / -1; }
+      .info:nth-child(2) { padding-left: 0; border-left: 0; }
+      .info { padding-bottom: 16px; }
+      .orbit-caption { right: 4%; bottom: 3%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="mark">U</div>
+      <div class="side-label">PERSONAL SPACE · 2026</div>
+      <div class="side-index">01 / 01</div>
+    </aside>
+
+    <main>
+      <header>
+        <div>Independent Orbit / No. 001</div>
+        <div class="status"><i></i> TRANSMISSION ACTIVE</div>
+      </header>
+
+      <section class="hero">
+        <div class="intro">
+          <div class="kicker">A SMALL PLACE IN THE UNIVERSE</div>
+          <h1>BEYOND<span>ORDINARY.</span></h1>
+          <p class="description">
+            Welcome to my digital space. A place to collect ideas,
+            explore the unknown, and leave my own little mark in the universe.
+          </p>
+          <div class="signature">SPACE OWNER — USATABOY</div>
+        </div>
+
+        <div class="orbit-scene" aria-hidden="true">
+          <div class="orbit"></div>
+          <div class="orbit two"></div>
+          <div class="planet"></div>
+          <div class="satellite"></div>
+          <div class="orbit-caption">FIG. 01 — ORBITAL STUDY</div>
+        </div>
+      </section>
+
+      <section class="info-row">
+        <div class="info">
+          <div class="label">LOCAL TIME</div>
+          <div class="value time" id="clock">00:00:00</div>
+        </div>
+        <div class="info">
+          <div class="label">EARTH DATE</div>
+          <div class="value" id="date">----</div>
+        </div>
+        <div class="info">
+          <div class="label">CURRENT STATUS</div>
+          <div class="value">Somewhere, looking up.</div>
+        </div>
+      </section>
+
+      <footer>
+        <span>© <span id="year"></span> USATABOY</span>
+        <span>MADE ON EARTH · LOOKING OUTWARD</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const clock = document.getElementById("clock");
+    const date = document.getElementById("date");
+
+    function updateClock() {
+      const now = new Date();
+
+      clock.textContent = new Intl.DateTimeFormat("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+      }).format(now);
+
+      date.textContent = new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        weekday: "long"
+      }).format(now);
+
+      document.getElementById("year").textContent = now.getFullYear();
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
